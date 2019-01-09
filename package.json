@@ -8,12 +8,10 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "react-production": "webpack",
     "react-dev": "webpack -d --watch",
-    "start": "server/server.js",
-    "schema": "mysql -u root <schema.sql -p",
+    "start": "node server/server.js",
+    "schema": "mysql -u root -p <schema.sql",
     "seed-products": "node db/productsTable_dataGenerator.js",
-    "seed-photos": "node db/realPhoto_dataGenerator.js",
     "test": "jest --watch --config ./client/src/tests/jest.config.json",
     "docker-start": "node server/server.js & node db/productsTable_dataGenerator.js"
   },
