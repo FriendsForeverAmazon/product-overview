@@ -45,10 +45,10 @@ const photoGenerator = () => {
   for (let i = 0; i < photos.length; i++) {
     if (i % 2 === 0) {
       result.push({
-        main_url: photos[i][0], zoom_url: photos[i][1], product_id: i, main_photo: 1});
+        main_url: photos[i][0], zoom_url: photos[i][1], product_id: i + 1, main_photo: 1});
     } else {
       result.push({
-        main_url: photos[i][0], zoom_url: photos[i][1], product_id: i, main_photo: 0});
+        main_url: photos[i][0], zoom_url: photos[i][1], product_id: i + 1, main_photo: 0});
     }
   }
   return result;
