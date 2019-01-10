@@ -3,3 +3,4 @@ module.exports = {
   database: 'amazon',
   port: 5432,
 };
+
