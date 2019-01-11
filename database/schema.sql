@@ -1,4 +1,5 @@
 -- ***** PRODUCT OVERVIEW SCHEMA DESIGN ****
+-- psql -f schema.sql
 
 DROP DATABASE IF EXISTS amazon;
 
@@ -29,13 +30,6 @@ CREATE TABLE photos (
 	FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
--- seed the products to avoid F.K problems when seeding photos
-insert into products(product_title,vendor_name,review_average,review_count,answered_questions,list_price,discount,price,prime,description) values ('a','a',2.5,1,1,'a','a','a',1,'a');
-insert into products(product_title,vendor_name,review_average,review_count,answered_questions,list_price,discount,price,prime,description) values ('a','a',2.5,1,1,'a','a','a',1,'a');
-insert into products(product_title,vendor_name,review_average,review_count,answered_questions,list_price,discount,price,prime,description) values ('a','a',2.5,1,1,'a','a','a',1,'a');
-insert into products(product_title,vendor_name,review_average,review_count,answered_questions,list_price,discount,price,prime,description) values ('a','a',2.5,1,1,'a','a','a',1,'a');
-insert into products(product_title,vendor_name,review_average,review_count,answered_questions,list_price,discount,price,prime,description) values ('a','a',2.5,1,1,'a','a','a',1,'a');
-insert into products(product_title,vendor_name,review_average,review_count,answered_questions,list_price,discount,price,prime,description) values ('a','a',2.5,1,1,'a','a','a',1,'a');
-insert into products(product_title,vendor_name,review_average,review_count,answered_questions,list_price,discount,price,prime,description) values ('a','a',2.5,1,1,'a','a','a',1,'a');
-insert into products(product_title,vendor_name,review_average,review_count,answered_questions,list_price,discount,price,prime,description) values ('a','a',2.5,1,1,'a','a','a',1,'a');
-insert into products(product_title,vendor_name,review_average,review_count,answered_questions,list_price,discount,price,prime,description) values ('a','a',2.5,1,1,'a','a','a',1,'a');
+-- seed the products table
+COPY products FROM '/Data/productsData.csv' DELIMITER E'\t' CSV HEADER;
+COPY products FROM '/Data/photosData.csv' DELIMITER E'\t' CSV HEADER;
