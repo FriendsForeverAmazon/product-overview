@@ -41,7 +41,7 @@ const reviewAverageGenerator = () => {
 
 function generate10MRecord(callback) {
   //  populate the products table with dynamic faker data
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 10000000; i++) {
     discount = null;
     const productTitle = `${faker.commerce.productName()}, ${faker.lorem.sentence()}`.slice(0, -1);
     const vendorName = faker.company.companyName();
