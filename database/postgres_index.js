@@ -5,15 +5,10 @@ const pool = new Pool(psqlConfig);
 
 pool.connect()
   .then((client) => {
-    return client.query('SELECT * FROM users WHERE id = $1', [1])
-      .then((res) => {
-        client.release();
-        console.log(res.rows[0]);
-      })
-      .catch((err) => {
-        client.release();
-        console.log(err.stack);
-      });
+    console.log('connected to Postgres');
+  })
+  .catch((err) => {
+    console.log(err);
   });
 
 module.exports = {

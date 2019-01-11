@@ -33,3 +33,4 @@ const Products = mongoose.model('Products', productsSchema);
 const Photos = mongoose.model('Photos', photosSchema);
 
 module.exports = { Products, Photos };
+
