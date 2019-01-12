@@ -1,4 +1,5 @@
 -- ***** PRODUCT OVERVIEW SCHEMA DESIGN ****
+-- run this command to drop the database and init a new one
 -- psql -f schema.sql
 
 DROP DATABASE IF EXISTS amazon;
@@ -30,6 +31,6 @@ CREATE TABLE photos (
 	FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
--- seed the products table
-COPY products FROM '/Data/productsData.csv' DELIMITER E'\t' CSV HEADER;
-COPY products FROM '/Data/photosData.csv' DELIMITER E'\t' CSV HEADER;
+-- seeding the tables run these lines in postgres terminal
+-- copy products (product_title,vendor_name,review_average,review_count,answered_questions, list_price, discount, price, prime, description) from '/" full path "/"file name".tsv' DELIMITER E'\t';
+-- copy photos (main_url, zoom_url, product_id, main_photo) from '/" full path "/"file name".tsv' DELIMITER E'\t';
