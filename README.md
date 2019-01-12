@@ -50,13 +50,13 @@ app.get(/products/:productId)
 ```
 #### Post:
 ```sh
-app.post(/photos/:productId)
-app.post(/products/:productId)
+app.post(/photos)
+app.post(/products)
 ```
 #### Update:
 ```sh
-app.put(/photos/:productId)
-app.put(/products/:productId)
+app.put(/photos)
+app.put(/products)
 ```
 #### Delete:
 ```sh
