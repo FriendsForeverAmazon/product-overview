@@ -9,7 +9,7 @@ const PORT = 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const db = pSql;
+const db = mongoDB;
 
 app.get('/products/:productId', (req, res) => {
   db.selectProduct(req.params.productId, (err, data) => {
