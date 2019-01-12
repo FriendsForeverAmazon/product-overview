@@ -42,19 +42,19 @@ const photos = [
   ],
 ];
 function generate10MPhoto(callback) {
-  const comma = '\t';
+  const tab = '\t';
   for (let i = 1; i <= 10000000; i++) {
     let data = '';
     const idx = i % photos.length;
-    data += photos[idx][0][0] + comma;
-    data += photos[idx][0][1] + comma;
-    data += i + comma;
+    data += photos[idx][0][0] + tab;
+    data += photos[idx][0][1] + tab;
+    data += i + tab;
     data += 1;
     data += '\n';
     for (let j = 1; j < photos[idx].length; j++) {
-      data += photos[idx][j][0] + comma;
-      data += photos[idx][j][1] + comma;
-      data += i + comma;
+      data += photos[idx][j][0] + tab;
+      data += photos[idx][j][1] + tab;
+      data += i + tab;
       data += 0;
       data += '\n';
     }
