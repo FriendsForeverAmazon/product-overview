@@ -43,22 +43,22 @@ npm install
 
 ### CRUD API's
 
-## Get:
+#### Get:
 ```sh
 app.get(/photos/:productId)
 app.get(/products/:productId)
 ```
-## Post:
+#### Post:
 ```sh
 app.post(/photos/:productId)
 app.post(/products/:productId)
 ```
-## Update:
+#### Update:
 ```sh
 app.put(/photos/:productId)
 app.put(/products/:productId)
 ```
-## Delete:
+#### Delete:
 ```sh
 app.delete(/photos/:productId)
 app.delete(/products/:productId)
