@@ -9,23 +9,36 @@ const PORT = 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const db = mongoDB;
+let Switch = true;
+let db = pSql;
+
+app.get('/database/switch', (req, res) => {
+  if (Switch) {
+    db = mongoDB;
+    Switch = !Switch;
+    res.status(200).end('Switch to Mongo database');
+  } else {
+    db = pSql;
+    Switch = !Switch;
+    res.status(200).end('Switch to Postgres database');
+  }
+});
 
 app.get('/products/:productId', (req, res) => {
   db.selectProduct(req.params.productId, (err, data) => {
     if (err) {
-      res.status(501).send(err.stack);
+      res.status(501).send(err);
     } else {
-      res.status(201).send(data.rows[0]);
+      res.status(201).send(data);
     }
   });
 });
 app.get('/photos/:productId', (req, res) => {
   db.selectPhotos(req.params.productId, (err, data) => {
     if (err) {
-      res.status(501).send(err.stack);
+      res.status(501).send(err);
     } else {
-      res.status(201).send(data.rows[0]);
+      res.status(201).send(data);
     }
   });
 });
@@ -33,18 +46,18 @@ app.get('/photos/:productId', (req, res) => {
 app.post('/products', (req, res) => {
   db.insertProduct(req.body, (err, data) => {
     if (err) {
-      res.status(501).send(err.stack);
+      res.status(501).send(err);
     } else {
-      res.status(201).send(data.rows[0]);
+      res.status(201).send(data);
     }
   });
 });
 app.post('/photos', (req, res) => {
   db.insertPhoto(req.body, (err, data) => {
     if (err) {
-      res.status(501).send(err.stack);
+      res.status(501).send(err);
     } else {
-      res.status(201).send(data.rows[0]);
+      res.status(201).send(data);
     }
   });
 });
@@ -52,18 +65,18 @@ app.post('/photos', (req, res) => {
 app.put('/products', (req, res) => {
   db.updateProduct(req.body, (err, data) => {
     if (err) {
-      res.status(501).send(err.stack);
+      res.status(501).send(err);
     } else {
-      res.status(202).send(data.rows[0]);
+      res.status(202).send(data);
     }
   });
 });
 app.put('/photos', (req, res) => {
   db.updatePhoto(req.body, (err, data) => {
     if (err) {
-      res.status(501).send(err.stack);
+      res.status(501).send(err);
     } else {
-      res.status(202).send(data.rows[0]);
+      res.status(202).send(data);
     }
   });
 });
@@ -71,18 +84,18 @@ app.put('/photos', (req, res) => {
 app.delete('/products/:productId', (req, res) => {
   db.deleteProduct(req.params.productId, (err, data) => {
     if (err) {
-      res.status(501).send(err.stack);
+      res.status(501).send(err);
     } else {
-      res.status(203).send(data.rows[0]);
+      res.status(203).send(data);
     }
   });
 });
 app.delete('/photos/:productId', (req, res) => {
   db.deletePhotos(req.params.productId, (err, data) => {
     if (err) {
-      res.status(501).send(err.stack);
+      res.status(501).send(err);
     } else {
-      res.status(203).send(data.rows[0]);
+      res.status(203).send(data);
     }
   });
 });
