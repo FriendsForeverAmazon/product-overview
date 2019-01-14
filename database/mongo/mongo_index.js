@@ -28,13 +28,13 @@ const productsSchema = new mongoose.Schema({
   list_price: { type: String, required: true },
   discount: String,
   price: { type: String, required: true },
-  prime: { type: String, required: true },
+  prime: { type: Number, required: true },
   description: String,
 });
 
 const photosSchema = new mongoose.Schema({
-  main_url: { type: String, required: true },
-  zoom_url: { type: String, required: true },
+  main_url: { type: Number, required: true },
+  zoom_url: { type: Number, required: true },
   product_id: Number,
   main_photo: { type: Number, required: true },
 });

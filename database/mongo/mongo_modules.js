@@ -1,11 +1,11 @@
 const mongoDB = require('./mongo_index');
 
 function selectProductMongoDB(values, callback) {
-  mongoDB.Products.find({ _id: values.id }, callback);
+  mongoDB.Products.find({ _id: values }, callback);
 }
 
 function selectPhotosMongoDB(values, callback) {
-  mongoDB.Photos.find({ _id: values.id }, callback);
+  mongoDB.Photos.find({ _id: values }, callback);
 }
 
 function insertProductMongoDB(values, callback) {
@@ -18,7 +18,7 @@ function insertProductMongoDB(values, callback) {
     list_price: values.list_price || '',
     discount: values.discount || '',
     price: values.price || '',
-    prime: values.prime || '',
+    prime: values.prime || 0,
     description: values.description || '',
   });
   product.save(callback);
@@ -43,11 +43,11 @@ function updatePhotosMongoDB(values, callback) {
 }
 
 function deleteProductMongoDB(values, callback) {
-  mongoDB.Products.deleteMany({ _id: values.id }, callback);
+  mongoDB.Products.deleteMany({ _id: values }, callback);
 }
 
 function deletePhotosMongoDB(values, callback) {
-  mongoDB.Photos.deleteMany({ _id: values.id }, callback);
+  mongoDB.Photos.deleteMany({ _id: values }, callback);
 }
 
 module.exports = {
