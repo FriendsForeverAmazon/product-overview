@@ -24,13 +24,19 @@ CREATE TABLE products (
 
 CREATE TABLE photos (
 	id SERIAL PRIMARY KEY NOT NULL,
-	main_url CHAR(255) NOT NULL,
-	zoom_url CHAR(255) NOT NULL,
+	main_url INT NOT NULL,
+	zoom_url INT NOT NULL,
 	product_id INT,
 	main_photo INT NOT NULL,
 	FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
+CREATE TABLE photosURL (
+	id SERIAL PRIMARY KEY NOT NULL,
+	url CHAR(255),
+);
+
 -- seeding the tables run these lines in postgres terminal
--- copy products (product_title,vendor_name,review_average,review_count,answered_questions, list_price, discount, price, prime, description) from '/" full path "/"file name".tsv' DELIMITER E'\t';
--- copy photos (main_url, zoom_url, product_id, main_photo) from '/" full path "/"file name".tsv' DELIMITER E'\t';
+-- copy products (id, product_title,vendor_name,review_average,review_count,answered_questions, list_price, discount, price, prime, description) from '/" full path "/"file name".tsv' DELIMITER E'\t';
+-- copy photos (id, main_url, zoom_url, product_id, main_photo) from '/" full path "/"file name".tsv' DELIMITER E'\t';
+-- copy photos (id, url) from '/" full path "/"file name".tsv' DELIMITER E'\t';
