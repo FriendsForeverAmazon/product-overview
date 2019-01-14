@@ -41,7 +41,7 @@ const reviewAverageGenerator = () => {
 
 function generate10MRecord(callback) {
   //  populate the products table with dynamic faker data
-  for (let i = 0; i < 10000000; i++) {
+  for (let i = 1; i <= 10000000; i++) {
     discount = null;
     const productTitle = `${faker.commerce.productName()}, ${faker.lorem.sentence()}`.slice(0, -1);
     const vendorName = faker.company.companyName();
@@ -54,7 +54,7 @@ function generate10MRecord(callback) {
     const description = descriptionGenerator();
 
     //  build an array record to pass into the db.saveProductRecord function
-    const record = [productTitle, vendorName, reviewAverage, reviewCount,
+    const record = [i, productTitle, vendorName, reviewAverage, reviewCount,
       answeredQuestions, listPrice, discount, price, prime, description].join('\t');
     fs.appendFileSync('./productsData.tsv', record + '\n');
   }
