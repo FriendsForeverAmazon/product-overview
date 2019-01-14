@@ -1,8 +1,11 @@
-const generateProducts = require('./genertareProducts');
-const generatePhotos = require('./genertarePhotos');
+const generateProducts = require('./generateProducts');
+const generatePhotos = require('./generatePhotos');
+const generatePhotosURL = require('./generatePhotosURL');
 
 generateProducts(() => {
   generatePhotos(() => {
-    process.exit(1);
+    generatePhotosURL(() => {
+      process.exit(1);
+    });
   });
 });

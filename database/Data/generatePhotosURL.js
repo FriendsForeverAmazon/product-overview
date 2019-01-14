@@ -42,29 +42,21 @@ const photos = [
   ],
 ];
 function generate10MPhoto(callback) {
+  let data = '';
+  let idx = 1;
   const tab = '\t';
-  for (let i = 1; i <= 10000000; i++) {
-    let data = '';
-    const idx = i % photos.length;
-    data += photos[idx][0][0] + tab;
-    data += photos[idx][0][1] + tab;
-    data += i + tab;
-    data += 1;
-    data += '\n';
-    for (let j = 1; j < photos[idx].length; j++) {
-      data += photos[idx][j][0] + tab;
-      data += photos[idx][j][1] + tab;
-      data += i + tab;
-      data += 0;
-      data += '\n';
+  for (let i = 0; i < photos.length; i++) {
+    for (let j = 0; j < photos[i].length; j++) {
+      for (let k = 0; k < photos[i][j].length; k++) {
+        data += idx + tab + photos[i][j][k] + '\n';
+        idx++;
+      }
     }
-
-    fs.appendFileSync('./photosData.tsv', data);
   }
+  fs.appendFileSync('./photosURLData.tsv', data);
   console.log('////////////////////////////');
-  console.log('  write over 40 million record for photos');
+  console.log('  write 54 record for photos');
   console.log('////////////////////////////');
-
   callback();
 }
 
