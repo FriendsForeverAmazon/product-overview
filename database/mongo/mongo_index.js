@@ -3,7 +3,10 @@ const productsAutoIncrement = require('mongoose-auto-increment');
 const photosAutoIncrement = require('mongoose-auto-increment');
 
 const DB_HOST = process.env.DB_HOST || 'localhost';
-mongoose.connect(`mongodb://${DB_HOST}:27017/amazon`);
+mongoose.connect(`mongodb://${DB_HOST}:27017/amazon`, {
+  useCreateIndex: true,
+  useNewUrlParser: true,
+});
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
