@@ -49,7 +49,7 @@ function generate10MPhoto(callback) {
   let id = 0;
   let photoNum = 1;
   let idx = 0;
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= 10000000; i++) {
     id++;
     let data = '' + id + tab;
     data += photoNum + tab;
