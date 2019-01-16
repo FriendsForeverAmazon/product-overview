@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 let Switch = true;
-let db = mongoDB;
+let db = pSql;
 
 app.get('/switchDatabase', (req, res) => {
   if (Switch) {
