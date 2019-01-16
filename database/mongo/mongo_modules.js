@@ -5,7 +5,21 @@ function selectProductMongoDB(values, callback) {
 }
 
 function selectPhotosMongoDB(values, callback) {
-  mongoDB.Photos.find({ _id: values }, callback);
+  mongoDB.Photos.aggregate([
+    {
+      $lookup:
+        {
+          from: 'PhotosURL',
+          localField: 'photos_url',
+          foreignField: 'id',
+          as: ['photos.id', values],
+        },
+    },
+    {
+      $replaceRoot: { newRoot: { $mergeObjects: [{ $arrayElemAt: ['$photos', 0] }, '$$ROOT'] } },
+    },
+    { $project: { photos: 0 } },
+  ], callback);
 }
 
 function insertProductMongoDB(values, callback) {

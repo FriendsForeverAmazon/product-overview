@@ -54,8 +54,6 @@ function generate10MPhoto(callback) {
     let data = '' + id + tab;
     data += photoNum + tab;
     photoNum++;
-    data += photoNum + tab;
-    photoNum++;
     data += i + tab;
     data += 0 + '\n';
     for (let j = 0; j < photos[idx].length - 1; j++) {
@@ -63,14 +61,12 @@ function generate10MPhoto(callback) {
       data += id + tab;
       data += photoNum + tab;
       photoNum++;
-      data += photoNum + tab;
-      photoNum++;
       data += i + tab;
       data += 1 + '\n';
     }
     fs.appendFileSync('./photosData.tsv', data);
     // number of photos in the photosURL is 54
-    if (photoNum > 54) {
+    if (photoNum > 27) {
       photoNum = 1;
     }
 

@@ -5,17 +5,17 @@ function selectProductPSql(id, callback) {
     if (err) {
       callback(err.stack);
     } else {
-      callback(null, data.rows[0]);
+      callback(null, data.rows);
     }
   });
 }
 
 function selectPhotosPSql(id, callback) {
-  pSql.query('SELECT * FROM photos WHERE id = ($1)', [id], (err, data) => {
+  pSql.query('select photos.id, photosURL.main_url as main_url,photosURL.zoom_url as zoom_url,product_id,main_photo from photos INNER JOIN photosURL ON (photos.photos_url = photosURL.id) where product_id = ($1)', [id], (err, data) => {
     if (err) {
       callback(err.stack);
     } else {
-      callback(null, data.rows[0]);
+      callback(null, data.rows);
     }
   });
 }
@@ -28,7 +28,7 @@ function insertProductPSql(values, callback) {
     if (err) {
       callback(err.stack);
     } else {
-      callback(null, data.rows[0]);
+      callback(null, data.rows);
     }
   });
 }
@@ -39,7 +39,7 @@ function insertPhotosPSql(values, callback) {
     if (err) {
       callback(err.stack);
     } else {
-      callback(null, data.rows[0]);
+      callback(null, data.rows);
     }
   });
 }
@@ -53,7 +53,7 @@ function updateProductPSql(values, callback) {
       if (err) {
         callback(err.stack);
       } else {
-        callback(null, data.rows[0]);
+        callback(null, data.rows);
       }
     });
   }
@@ -66,7 +66,7 @@ function updatePhotosPSql(values, callback) {
       if (err) {
         callback(err.stack);
       } else {
-        callback(null, data.rows[0]);
+        callback(null, data.rows);
       }
     });
   }
@@ -77,7 +77,7 @@ function deleteProductPSql(id, callback) {
     if (err) {
       callback(err.stack);
     } else {
-      callback(null, data.rows[0]);
+      callback(null, data.rows);
     }
   });
 }
@@ -87,7 +87,7 @@ function deletePhotosPSql(id, callback) {
     if (err) {
       callback(err.stack);
     } else {
-      callback(null, data.rows[0]);
+      callback(null, data.rows);
     }
   });
 }

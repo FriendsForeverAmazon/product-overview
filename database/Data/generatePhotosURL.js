@@ -47,15 +47,13 @@ function generate10MPhoto(callback) {
   const tab = '\t';
   for (let i = 0; i < photos.length; i++) {
     for (let j = 0; j < photos[i].length; j++) {
-      for (let k = 0; k < photos[i][j].length; k++) {
-        data += idx + tab + photos[i][j][k] + '\n';
-        idx++;
-      }
+      data += idx + tab + photos[i][j][0] + tab + photos[i][j][1] + '\n';
+      idx++;
     }
   }
   fs.appendFileSync('./photosURLData.tsv', data);
   console.log('////////////////////////////');
-  console.log('  write 54 record for photos');
+  console.log('  write 27 record for photosURL');
   console.log('////////////////////////////');
   callback();
 }
