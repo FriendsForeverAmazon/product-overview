@@ -36,6 +36,8 @@ CREATE TABLE photosURL (
 	zoom_url CHAR(75)
 );
 
+CREATE INDEX idx_product_id ON photos(product_id);
+
 -- seeding the tables run these lines in postgres terminal
 -- copy products (id, product_title,vendor_name,review_average,review_count,answered_questions, list_price, discount, price, prime, description) from '/" full path "/"file name".tsv' DELIMITER E'\t';
 -- copy photos (id, photos_url, product_id, main_photo) from '/" full path "/"file name".tsv' DELIMITER E'\t';
