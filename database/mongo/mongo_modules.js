@@ -5,20 +5,35 @@ function selectProductMongoDB(values, callback) {
 }
 
 function selectPhotosMongoDB(values, callback) {
+  // aggregate operation performe a seq of operations on order
   mongoDB.Photos.aggregate([
     {
+      // match is a search where filter on a condition or an array of conditions
+      $match:
+      {
+        product_id: Number(values),
+      },
+    },
+    {
+      // lookup is a join operation
       $lookup:
         {
-          from: 'PhotosURL',
+          from: 'photosURL',
           localField: 'photos_url',
           foreignField: 'id',
-          as: ['photos.id', values],
+          as: 'url',
         },
     },
     {
-      $replaceRoot: { newRoot: { $mergeObjects: [{ $arrayElemAt: ['$photos', 0] }, '$$ROOT'] } },
+      // replaceRoot will merge the result object from lookup as named url prevoisly
+      // to the base level
+      $replaceRoot: { newRoot: { $mergeObjects: [{ $arrayElemAt: ['$url', 0] }, '$$ROOT'] } },
     },
-    { $project: { photos: 0 } },
+    {
+      // project will delete the url object from the root level since we used replaceRoot
+      // to put the keys and value in the root level
+      $project: { url: 0 },
+    },
   ], callback);
 }
 
