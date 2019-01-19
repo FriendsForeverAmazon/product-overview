@@ -1,13 +1,12 @@
 import http from 'k6/http';
-import { sleep } from 'k6';
 
 export const options = {
-  vus: 240,
-  duration: '900s',
+  vus: 200,
+  duration: '30s',
+  rps: 10000,
 };
 
 export default function () {
   const number = (Math.floor(Math.random() * 10000000));
-  http.get('http://localhost:3000/photos/' + number);
-  sleep(0.1);
+  http.get('http://localhost:3000/products/' + number);
 }
