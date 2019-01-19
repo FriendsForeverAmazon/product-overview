@@ -54,13 +54,22 @@ function insertProductMongoDB(values, callback) {
 }
 
 function insertPhotosMongoDB(values, callback) {
-  const photo = new mongoDB.Photos({
+  const photosUrl = new mongoDB.PhotosURL({
     main_url: values.main_url || '',
     zoom_url: values.zoom_url || '',
-    product_id: values.product_id || 0,
-    main_photo: values.main_photo || 0,
   });
-  photo.save(callback);
+  photosUrl.save((err, doc, numbersAffected) => {
+    if (err) {
+      callback(err);
+    } else {
+      const photo = new mongoDB.Photos({
+        photos_url: doc._id,
+        product_id: values.product_id || 0,
+        main_photo: values.main_photo,
+      });
+      photo.save(callback);
+    }
+  });
 }
 
 function updateProductMongoDB(values, callback) {
@@ -79,6 +88,49 @@ function deletePhotosMongoDB(values, callback) {
   mongoDB.Photos.deleteMany({ _id: values }, callback);
 }
 
+function updateIdMongoDB(callback) {
+  const productIdCounter = {
+    count: 10000000,
+    model: 'Products',
+    field: '_id',
+    __v: 0,
+  };
+
+  const photosIdCounter = {
+    count: 45000000,
+    model: 'Photos',
+    field: '_id',
+    __v: 0,
+  };
+
+  const photosUrlIdCounter = {
+    count: 27,
+    model: 'PhotosURL',
+    field: '_id',
+    __v: 0,
+  };
+
+  mongoDB.identitycounters.updateMany({ model: 'Products' }, productIdCounter, (productErr, updateProducts) => {
+    if (productErr) {
+      callback(productErr);
+    } else {
+      mongoDB.identitycounters.updateMany({ model: 'Photos' }, photosIdCounter, (photoErr, updatePhotos) => {
+        if (photoErr) {
+          callback(photoErr);
+        } else {
+          mongoDB.identitycounters.updateMany({ model: 'PhotosURL' }, photosUrlIdCounter, (photoURLerr, updatePhotosUrl) => {
+            if (photoURLerr) {
+              callback(photoURLerr);
+            } else {
+              callback(null, [updateProducts, updatePhotos, updatePhotosUrl]);
+            }
+          });
+        }
+      });
+    }
+  });
+}
+
 module.exports = {
   mongoDB: {
     selectProduct: selectProductMongoDB,
@@ -89,6 +141,6 @@ module.exports = {
     updatePhoto: updatePhotosMongoDB,
     deleteProduct: deleteProductMongoDB,
     deletePhotos: deletePhotosMongoDB,
-
+    updateID: updateIdMongoDB,
   },
 };
