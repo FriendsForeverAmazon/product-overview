@@ -54,18 +54,18 @@ function insertProductMongoDB(values, callback) {
 }
 
 function insertPhotosMongoDB(values, callback) {
-  const photosUrl = new mongoDB.PhotosURL({
+  const photosURL = new mongoDB.PhotosURL({
     main_url: values.main_url || '',
     zoom_url: values.zoom_url || '',
   });
-  photosUrl.save((err, doc, numbersAffected) => {
+  photosURL.save((err, doc, numbersAffected) => {
     if (err) {
       callback(err);
     } else {
       const photo = new mongoDB.Photos({
-        photos_url: doc._id,
+        photos_url: Number(doc._id),
         product_id: values.product_id || 0,
-        main_photo: values.main_photo,
+        main_photo: Number(values.main_photo),
       });
       photo.save(callback);
     }

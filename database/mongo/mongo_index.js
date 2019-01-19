@@ -41,8 +41,8 @@ const photosSchema = new mongoose.Schema({
 });
 
 const photosURLSchema = new mongoose.Schema({
-  main_url: String,
-  zoom_url: String,
+  main_url: { type: Number, required: true },
+  zoom_url: { type: Number, required: true },
 });
 
 
@@ -68,6 +68,6 @@ photosURLSchema.plugin(photosAutoIncrement.plugin, {
 
 const Products = mongoose.model('Products', productsSchema);
 const Photos = mongoose.model('Photos', photosSchema);
-const PhotosURL = mongoose.model('PhotosURL', photosSchema);
+const PhotosURL = mongoose.model('PhotosURL', photosURLSchema);
 
 module.exports = { Products, Photos, PhotosURL };
