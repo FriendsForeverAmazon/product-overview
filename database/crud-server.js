@@ -1,3 +1,4 @@
+require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
 const { pSql } = require('./pSql/pSql_modules');
@@ -22,6 +23,16 @@ app.get('/switchDatabase', (req, res) => {
     Switch = !Switch;
     res.status(200).end('Switch to Postgres database');
   }
+});
+
+app.get('/updateID', (req, res) => {
+  db.updateID((err, data) => {
+    if (err) {
+      res.status(501).send(err);
+    } else {
+      res.status(201).send(data);
+    }
+  });
 });
 
 app.get('/products/:productId', (req, res) => {
