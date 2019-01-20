@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { pSql } = require('./pSql/pSql_modules');
 const { mongoDB } = require('./mongo/mongo_modules');
+const redis = require('./redis-5.0.3/redis');
 
 const app = express();
 const PORT = 3000;
@@ -36,20 +37,34 @@ app.get('/updateID', (req, res) => {
 });
 
 app.get('/products/:productId', (req, res) => {
-  db.selectProduct(req.params.productId, (err, data) => {
-    if (err) {
-      res.status(501).send(err);
+  redis.get('product:' + req.params.productId, (error, result) => {
+    if (error || result === null) {
+      db.selectProduct(req.params.productId, (err, data) => {
+        if (err) {
+          res.status(501).send(err);
+        } else {
+          redis.set('product:' + req.params.productId, JSON.stringify(data));
+          res.status(201).send(data);
+        }
+      });
     } else {
-      res.status(201).send(data);
+      res.status(201).send(JSON.parse(result));
     }
   });
 });
-app.get('/photos/:productId', (req, res) => {
-  db.selectPhotos(req.params.productId, (err, data) => {
-    if (err) {
-      res.status(501).send(err);
+app.get('/photos/:photosId', (req, res) => {
+  redis.hgetall('photos:' + req.params.photosId, (error, result) => {
+    if (error || result === null) {
+      db.selectPhotos(req.params.photosId, (err, data) => {
+        if (err) {
+          res.status(501).send(err);
+        } else {
+          redis.hset('photos:' + req.params.photosId, JSON.stringify(data));
+          res.status(201).send(data);
+        }
+      });
     } else {
-      res.status(201).send(data);
+      res.status(201).send(JSON.parse(result));
     }
   });
 });
