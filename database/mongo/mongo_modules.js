@@ -20,7 +20,7 @@ function selectPhotosMongoDB(values, callback) {
         {
           from: 'photosURL',
           localField: 'photos_url',
-          foreignField: 'id',
+          foreignField: '_id',
           as: 'url',
         },
     },
@@ -63,7 +63,7 @@ function insertPhotosMongoDB(values, callback) {
       callback(err);
     } else {
       const photo = new mongoDB.Photos({
-        photos_url: Number(doc._id),
+        photos_url: doc._id,
         product_id: values.product_id || 0,
         main_photo: Number(values.main_photo),
       });

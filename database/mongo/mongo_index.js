@@ -41,8 +41,8 @@ const photosSchema = new mongoose.Schema({
 });
 
 const photosURLSchema = new mongoose.Schema({
-  main_url: { type: Number, required: true },
-  zoom_url: { type: Number, required: true },
+  main_url: { type: String, required: true },
+  zoom_url: { type: String, required: true },
 });
 
 
