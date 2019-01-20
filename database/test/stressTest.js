@@ -1,12 +1,22 @@
 import http from 'k6/http';
 
 export const options = {
-  vus: 200,
-  duration: '30s',
-  rps: 10000,
+  vus: 100,
+  duration: '60s',
+  rps: 1000,
 };
 
+const number1 = Math.floor(Math.random() * 10000000);
+const number2 = Math.floor(Math.random() * 10000);
+const number3 = Math.floor(Math.random() * 1000);
+const number4 = Math.floor(Math.random() * 100);
+const number5 = Math.floor(Math.random() * 10);
+
+
 export default function () {
-  const number = (Math.floor(Math.random() * 10000000));
-  http.get('http://localhost:3000/products/' + number);
+  http.get('http://localhost:3000/products/' + number1);
+  http.get('http://localhost:3000/products/' + number2);
+  http.get('http://localhost:3000/products/' + number3);
+  http.get('http://localhost:3000/products/' + number4);
+  http.get('http://localhost:3000/products/' + number5);
 }
