@@ -5,3 +5,7 @@ node_modules/
 /database/Data/productsData.tsv
 
 /database/Data/photosData.tsv
+
+/database/Data/productsData.tsv
+
+/newrelic_agent.log

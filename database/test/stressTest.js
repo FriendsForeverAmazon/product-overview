@@ -2,15 +2,15 @@ import http from 'k6/http';
 
 export const options = {
   vus: 100,
-  duration: '60s',
-  rps: 1000,
+  duration: '600s',
+  rps: 5000,
 };
 
 const number1 = Math.floor(Math.random() * 10000000);
 const number2 = Math.floor(Math.random() * 10000);
 const number3 = Math.floor(Math.random() * 1000);
 const number4 = Math.floor(Math.random() * 100);
-const number5 = Math.floor(Math.random() * 10);
+const number5 = Math.floor(Math.random() * 100);
 
 
 export default function () {
