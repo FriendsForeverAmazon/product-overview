@@ -77,7 +77,24 @@ function updateProductMongoDB(values, callback) {
 }
 
 function updatePhotosMongoDB(values, callback) {
-  mongoDB.Photos.updateMany({ _id: values.id }, values, callback);
+  values.forEach((record) => {
+    const photosURL = new mongoDB.PhotosURL({
+      main_url: record.main_url || '',
+      zoom_url: record.zoom_url || '',
+    });
+    photosURL.save((err, doc, numbersAffected) => {
+      if (err) {
+        callback(err);
+      } else {
+        const photo = new mongoDB.Photos({
+          photos_url: doc._id,
+          product_id: record.product_id || 0,
+          main_photo: Number(record.main_photo),
+        });
+        photo.save(callback);
+      }
+    });
+  });
 }
 
 function deleteProductMongoDB(values, callback) {
@@ -85,7 +102,7 @@ function deleteProductMongoDB(values, callback) {
 }
 
 function deletePhotosMongoDB(values, callback) {
-  mongoDB.Photos.deleteMany({ _id: values }, callback);
+  mongoDB.Photos.deleteMany({ product_id: values }, callback);
 }
 
 function updateIdMongoDB(callback) {
