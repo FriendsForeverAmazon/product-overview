@@ -46,5 +46,5 @@ CREATE INDEX idx_product_id ON photos(product_id);
 
 -- for mongo use these lines
 -- mongoimport -d amazon -c products --type tsv --file '/" full path "/"file name".tsv' -f _id,product_title,vendor_name,review_average,review_count,answered_questions,list_price,discount,price,prime,description --numInsertionWorkers 8
---  mongoimport -d amazon -c photos --type tsv --file '/" full path "/"file name".tsv' -f _id,photos_url,product_id,main_photo  --numInsertionWorkers 8
+-- mongoimport -d amazon -c photos --type tsv --file '/" full path "/"file name".tsv' -f _id,photos_url,product_id,main_photo  --numInsertionWorkers 8
 -- mongoimport -d amazon -c photosURL --type tsv --file '/" full path "/"file name".tsv' -f _id,main_url,zoom_url  --numInsertionWorkers 8

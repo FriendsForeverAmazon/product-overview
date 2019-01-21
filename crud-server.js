@@ -1,33 +1,20 @@
-require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
-const { pSql } = require('./pSql/pSql_modules');
-const { mongoDB } = require('./mongo/mongo_modules');
-const redis = require('./redis-5.0.3/redis');
+const path = require('path');
+const { pSql } = require('./database/pSql/pSql_modules');
+const { mongoDB } = require('./database/mongo/mongo_modules');
+const redis = require('./database/redis-5.0.3/redis');
 
 const app = express();
 const PORT = 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-let Switch = true;
-let db = pSql;
-
-app.get('/switchDatabase', (req, res) => {
-  if (Switch) {
-    db = mongoDB;
-    Switch = !Switch;
-    res.status(200).end('Switch to Mongo database');
-  } else {
-    db = pSql;
-    Switch = !Switch;
-    res.status(200).end('Switch to Postgres database');
-  }
-});
+app.use('/:productId', express.static(path.join(__dirname, './client/dist/')));
+app.use(express.static(path.join(__dirname, './client/dist/')));
 
 app.get('/updateID', (req, res) => {
-  db.updateID((err, data) => {
+  mongoDB.updateID((err, data) => {
     if (err) {
       res.status(501).send(err);
     } else {
@@ -39,7 +26,7 @@ app.get('/updateID', (req, res) => {
 app.get('/products/:productId', (req, res) => {
   redis.get('product:' + req.params.productId, (error, result) => {
     if (error || result === null) {
-      db.selectProduct(req.params.productId, (err, data) => {
+      pSql.selectProduct(req.params.productId, (err, data) => {
         if (err) {
           res.status(501).send(err);
         } else {
@@ -53,13 +40,13 @@ app.get('/products/:productId', (req, res) => {
   });
 });
 app.get('/photos/:photosId', (req, res) => {
-  redis.hgetall('photos:' + req.params.photosId, (error, result) => {
+  redis.get('photos:' + req.params.photosId, (error, result) => {
     if (error || result === null) {
-      db.selectPhotos(req.params.photosId, (err, data) => {
+      mongoDB.selectPhotos(req.params.photosId, (err, data) => {
         if (err) {
           res.status(501).send(err);
         } else {
-          redis.hset('photos:' + req.params.photosId, JSON.stringify(data));
+          redis.set('photos:' + req.params.photosId, JSON.stringify(data));
           res.status(201).send(data);
         }
       });
@@ -70,7 +57,7 @@ app.get('/photos/:photosId', (req, res) => {
 });
 
 app.post('/products', (req, res) => {
-  db.insertProduct(req.body, (err, data) => {
+  pSql.insertProduct(req.body, (err, data) => {
     if (err) {
       res.status(501).send(err);
     } else {
@@ -79,7 +66,7 @@ app.post('/products', (req, res) => {
   });
 });
 app.post('/photos', (req, res) => {
-  db.insertPhoto(req.body, (err, data) => {
+  mongoDB.insertPhoto(req.body, (err, data) => {
     if (err) {
       res.status(501).send(err);
     } else {
@@ -89,7 +76,7 @@ app.post('/photos', (req, res) => {
 });
 
 app.put('/products', (req, res) => {
-  db.updateProduct(req.body, (err, data) => {
+  pSql.updateProduct(req.body, (err, data) => {
     if (err) {
       res.status(501).send(err);
     } else {
@@ -98,7 +85,7 @@ app.put('/products', (req, res) => {
   });
 });
 app.put('/photos', (req, res) => {
-  db.updatePhoto(req.body, (err, data) => {
+  mongoDB.updatePhoto(req.body, (err, data) => {
     if (err) {
       res.status(501).send(err);
     } else {
@@ -108,7 +95,7 @@ app.put('/photos', (req, res) => {
 });
 
 app.delete('/products/:productId', (req, res) => {
-  db.deleteProduct(req.params.productId, (err, data) => {
+  pSql.deleteProduct(req.params.productId, (err, data) => {
     if (err) {
       res.status(501).send(err);
     } else {
@@ -117,7 +104,7 @@ app.delete('/products/:productId', (req, res) => {
   });
 });
 app.delete('/photos/:productId', (req, res) => {
-  db.deletePhotos(req.params.productId, (err, data) => {
+  mongoDB.deletePhotos(req.params.productId, (err, data) => {
     if (err) {
       res.status(501).send(err);
     } else {
