@@ -9,11 +9,10 @@
   },
   "scripts": {
     "react-dev": "webpack -d --watch",
-    "start": "node server/server.js",
-    "schema": "mysql -u root -p <schema.sql",
-    "seed-products": "node db/productsTable_dataGenerator.js",
-    "test": "jest --watch --config ./client/src/tests/jest.config.json",
-    "docker-start": "node server/server.js & node db/productsTable_dataGenerator.js"
+    "start": "node crud-server.js",
+    "schema": "psql -u root -p <database/schema.sql",
+    "seed-products": "node database/Data/seedDB.js",
+    "test": "jest --watch --config ./client/src/tests/jest.config.json"
   },
   "dependencies": {
     "axios": "^0.18.0",
