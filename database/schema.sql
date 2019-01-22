@@ -10,8 +10,8 @@ CREATE DATABASE amazon;
 
 CREATE TABLE products (
 	id SERIAL PRIMARY KEY NOT NULL,
-	product_title CHAR(50) NOT NULL,
-	vendor_name CHAR(50) NOT NULL,
+	product_title CHAR(200) NOT NULL,
+	vendor_name CHAR(200) NOT NULL,
 	review_average REAL, 
 	review_count INT DEFAULT 0,
 	answered_questions INT, 
@@ -22,21 +22,21 @@ CREATE TABLE products (
 	description TEXT
 );
 
-CREATE TABLE photos (
-	id SERIAL PRIMARY KEY NOT NULL,
-	photos_url INT NOT NULL,
-	product_id INT,
-	main_photo INT NOT NULL,
-	FOREIGN KEY (product_id) REFERENCES products(id)
-);
+-- CREATE TABLE photos (
+-- 	id SERIAL PRIMARY KEY NOT NULL,
+-- 	photos_url INT NOT NULL,
+-- 	product_id INT,
+-- 	main_photo INT NOT NULL,
+-- 	FOREIGN KEY (product_id) REFERENCES products(id)
+-- );
 
-CREATE TABLE photosURL (
-	id SERIAL PRIMARY KEY NOT NULL,
-	main_url CHAR(75),
-	zoom_url CHAR(75)
-);
+-- CREATE TABLE photosURL (
+-- 	id SERIAL PRIMARY KEY NOT NULL,
+-- 	main_url CHAR(75),
+-- 	zoom_url CHAR(75)
+-- );
 
-CREATE INDEX idx_product_id ON photos(product_id);
+-- CREATE INDEX idx_product_id ON photos(product_id);
 
 -- seeding the tables run these lines in postgres terminal
 -- copy products (id, product_title,vendor_name,review_average,review_count,answered_questions, list_price, discount, price, prime, description) from '/" full path "/"file name".tsv' DELIMITER E'\t';
