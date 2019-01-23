@@ -12,8 +12,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // for express remove encryption to speed up the process
 app.disable('etag').disable('x-powered-by');
-app.use('/:productId', express.static(path.join(__dirname, './../client/dist/')));
-app.use(express.static(path.join(__dirname, './../client/dist/')));
+app.use('/:productId', express.static(path.join(__dirname, './client/dist/')));
+app.use(express.static(path.join(__dirname, './client/dist/')));
 
 app.get('/updateID', (req, res) => {
   mongoDB.updateID((err, data) => {
