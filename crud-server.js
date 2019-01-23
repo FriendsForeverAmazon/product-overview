@@ -1,20 +1,19 @@
-const fastify = require('fastify');
+const express = require('express');
 const path = require('path');
-const serveStatic = require('serve-static');
 const bodyParser = require('body-parser');
 const { pSql } = require('./database/pSql/pSql_modules');
 const { mongoDB } = require('./database/mongo/mongo_modules');
 const redis = require('./database/redis-5.0.3/redis');
 
-const app = fastify();
+const app = express();
 const PORT = 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // for express remove encryption to speed up the process
-// app.disable('etag').disable('x-powered-by');
-app.use('/:productId', serveStatic(path.join(__dirname, './client/dist/')));
-app.use(serveStatic(path.join(__dirname, './client/dist/')));
+app.disable('etag').disable('x-powered-by');
+app.use('/:productId', express.static(path.join(__dirname, './../client/dist/')));
+app.use(express.static(path.join(__dirname, './../client/dist/')));
 
 app.get('/updateID', (req, res) => {
   mongoDB.updateID((err, data) => {
