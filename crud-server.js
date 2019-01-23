@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const { pSql } = require('./database/pSql/pSql_modules');
 const { mongoDB } = require('./database/mongo/mongo_modules');
 const redis = require('./database/redis-5.0.3/redis');
@@ -10,6 +11,7 @@ const PORT = 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 // for express remove encryption to speed up the process
 app.disable('etag').disable('x-powered-by');
 app.use('/:productId', express.static(path.join(__dirname, './client/dist/')));

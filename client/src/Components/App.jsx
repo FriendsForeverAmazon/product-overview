@@ -22,7 +22,7 @@ class App extends React.Component {
   }
   
   getPhotos(id) {
-    axios.get(`localhost:3000/photos/${id}`) 
+    axios.get(`/photos/${id}`) 
     .then((photos) => {
       this.setState({
         photoSideBar: photos.data
@@ -42,7 +42,7 @@ class App extends React.Component {
   }
 
   getProduct(id) {
-    axios.get(`localhost:3000/products/${id}`)
+    axios.get(`/products/${id}`)
     .then(data => {
       const parsedDescription = JSON.parse(data.data[0].description);
       this.setState({
