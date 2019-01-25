@@ -35,7 +35,7 @@ app.get('/products/:productId', (req, res) => {
         if (err) {
           res.status(501).send(err);
         } else {
-          redis.set('product:' + req.params.productId, JSON.stringify(data));
+          redis.set('product:' + req.params.productId, JSON.stringify(data), 'ex 300 NX');
           res.status(201).send(data);
         }
       });
@@ -51,7 +51,7 @@ app.get('/photos/:photosId', (req, res) => {
         if (err) {
           res.status(501).send(err);
         } else {
-          redis.set('photos:' + req.params.photosId, JSON.stringify(data));
+          redis.set('photos:' + req.params.photosId, JSON.stringify(data), 'ex 300 NX');
           res.status(201).send(data);
         }
       });
