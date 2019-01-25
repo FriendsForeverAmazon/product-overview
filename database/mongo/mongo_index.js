@@ -4,7 +4,7 @@ const photosAutoIncrement = require('mongoose-auto-increment');
 const photosURLAutoIncrement = require('mongoose-auto-increment');
 
 const DB_HOST = process.env.DB_HOST || 'localhost';
-mongoose.connect(`mongodb://${DB_HOST}:27017/amazon`, {
+mongoose.connect(`mongodb://52.53.157.37:27017/amazon`, {
   useCreateIndex: true,
   useNewUrlParser: true,
 });
@@ -34,11 +34,14 @@ const productsSchema = new mongoose.Schema({
   description: String,
 });
 
+
 const photosSchema = new mongoose.Schema({
   photos_url: { type: Number, required: true },
   product_id: Number,
   main_photo: { type: Number, required: true },
 });
+
+photosSchema.index({ product_id: 1 });
 
 const photosURLSchema = new mongoose.Schema({
   main_url: { type: String, required: true },
